@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 下拉刷新 -->
+
+    <declare-styleable name="KListView">
+        <attr name="header_hint_normal" format="string" />
+        <attr name="header_hint_ready" format="string" />
+        <attr name="header_hint_loading" format="string" />
+        <attr name="footer_hint_ready" format="string" />
+        <attr name="footer_hint_normal" format="string" />
+        <attr name="header_heaght" format="dimension" />
+        <attr name="footer_heaght" format="dimension" />
+        <attr name="arrow_pic" format="dimension" />
+    </declare-styleable>
+
+
+</resources>
