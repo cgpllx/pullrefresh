@@ -1,9 +1,9 @@
 package com.kubeiwu.pull;
 
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF;
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.IKPullListener;
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.OnXScrollListener;
-import com.kubeiwu.pull.pulltorefresh.listview.KListView;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF.IKPullListener;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF.OnXScrollListener;
+import com.kubeiwu.pull.pullview.KListView;
 
 import android.app.Activity;
 import android.content.Context;

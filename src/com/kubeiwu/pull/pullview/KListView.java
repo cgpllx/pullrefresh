@@ -1,54 +1,46 @@
-package com.kubeiwu.pull.pulltorefresh.listview;
+package com.kubeiwu.pull.pullview;
+
+import com.kubeiwu.pull.pullcore.PullController;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF.IKPullListener;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF.KConfig;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF;
 
 /**
  * @author cgpllx1@qq.com (www.kubeiwu.com)
  * @date 2014-7-29
  */
-public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
+public class KListView extends ListView implements PullFreshViewIF {
 
 	private PullController mPullFreshController;
-
-	/**
-	 * @param context
-	 */
-	public KGistView(Context context) {
+ 
+	public KListView(Context context) {
 		this(context, null, 0, null);
 	}
 
-	public KGistView(Context context, KConfig config) {
+	public KListView(Context context, KConfig config) {
 		this(context, null, 0, config);
 	}
 
-	public KGistView(Context context, AttributeSet attrs) {
+	public KListView(Context context, AttributeSet attrs) {
 		this(context, attrs, 0, null);
 	}
 
-	public KGistView(Context context, AttributeSet attrs, KConfig config) {
-		this(context, attrs, 0, config);
-	}
 
-	public KGistView(Context context, AttributeSet attrs, int defStyle) {
+	public KListView(Context context, AttributeSet attrs, int defStyle) {
 		this(context, attrs, defStyle, null);
 	}
 
-	public KGistView(Context context, AttributeSet attrs, int defStyle, KConfig config) {
+	public KListView(Context context, AttributeSet attrs, int defStyle, KConfig config) {
 		super(context, attrs, defStyle);
-		if (config == null) {
-			config = KConfig.getSimpleInstance();
-		}
 		mPullFreshController = new PullController(context, attrs, defStyle, config, this);
-		mPullFreshController.initConfig(config, attrs);
-		mPullFreshController.initWithContext(context, config);
 	}
 
 	@Override
@@ -56,7 +48,7 @@ public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
 		mPullFreshController.setAdapter(adapter);
 		super.setAdapter(adapter);
 	}
-
+	@Override
 	public void setPullRefreshEnable(boolean enable) {
 		mPullFreshController.setPullRefreshEnable(enable);
 	}
@@ -66,18 +58,19 @@ public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
 	 * 
 	 * @param enable
 	 */
+	@Override
 	public void setPullLoadEnable(boolean enable) {
 		mPullFreshController.setPullLoadEnable(enable);
 	}
-
+	@Override
 	public void stopRefresh() {
 		mPullFreshController.stopRefresh();
 	}
-
+	@Override
 	public void stopLoadMore() {
 		mPullFreshController.stopLoadMore();
 	}
-
+	@Override
 	public void setRefreshTime(String time) {
 		mPullFreshController.setRefreshTime(time);
 	}
@@ -94,8 +87,8 @@ public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
 		mPullFreshController.computeScroll();
 		super.computeScroll();
 	}
-
-
+ 
+	@Override
 	public void setKListViewListener(IKPullListener l) {
 		mPullFreshController.setKListViewListener(l);
 	}

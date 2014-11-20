@@ -1,4 +1,4 @@
-package com.kubeiwu.pull.pulltorefresh.listview;
+package com.kubeiwu.pull.pullcore;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,8 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kubeiwu.pull.R;
-import com.kubeiwu.pull.ViewFactory;
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.KConfig;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF.KConfig;
 
 /**
  * @author  cgpllx1@qq.com (www.kubeiwu.com)

@@ -1,4 +1,4 @@
-package com.kubeiwu.pull.pulltorefresh.listview;
+package com.kubeiwu.pull.pullcore;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,10 +16,9 @@ import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.kubeiwu.pull.R;
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF;
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.IKPullListener;
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.KConfig;
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.OnXScrollListener;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF.IKPullListener;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF.KConfig;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF.OnXScrollListener;
 
 public class PullController implements OnScrollListener {
 	private PullFreshViewIF mAbsListView;

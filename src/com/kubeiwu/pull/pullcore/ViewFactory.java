@@ -1,4 +1,7 @@
-package com.kubeiwu.pull;
+package com.kubeiwu.pull.pullcore;
+
+import com.kubeiwu.pull.R;
+import com.kubeiwu.pull.R.id;
 
 import android.content.Context;
 import android.support.v4.app.FragmentTabHost;
