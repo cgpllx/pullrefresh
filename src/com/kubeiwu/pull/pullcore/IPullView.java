@@ -3,7 +3,7 @@ package com.kubeiwu.pull.pullcore;
 import android.view.View;
 import android.widget.AbsListView.OnScrollListener;
 
-public interface PullFreshViewIF {
+public interface IPullView {
 
 	/**
 	 * implements this interface to get refresh/load more event.

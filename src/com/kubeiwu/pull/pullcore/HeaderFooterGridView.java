@@ -46,7 +46,7 @@ import android.widget.WrapperListAdapter;
  */
 @SuppressLint("ClickableViewAccessibility")
 public class HeaderFooterGridView extends GridView {
-    private static final String TAG = "HeaderFooterGridView";
+    public static final String TAG = "HeaderFooterGridView";
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		notifyAdapter();

@@ -8,13 +8,13 @@ import android.widget.ListAdapter;
 
 import com.kubeiwu.pull.pullcore.HeaderFooterGridView;
 import com.kubeiwu.pull.pullcore.PullController;
-import com.kubeiwu.pull.pullcore.PullFreshViewIF;
+import com.kubeiwu.pull.pullcore.IPullView;
 
 /**
  * @author cgpllx1@qq.com (www.kubeiwu.com)
  * @date 2014-7-29
  */
-public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
+public class KGistView extends HeaderFooterGridView implements IPullView {
 
 	private PullController mPullFreshController;
 
@@ -65,6 +65,7 @@ public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
 		mPullFreshController.setRefreshTime(time);
 	}
 
+	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
 		mPullFreshController.onTouchEvent(ev);

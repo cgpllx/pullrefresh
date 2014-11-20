@@ -7,9 +7,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kubeiwu.pull.R;
-import com.kubeiwu.pull.pullcore.PullFreshViewIF.KConfig;
+import com.kubeiwu.pull.pullcore.IPullView.KConfig;
 
-public class KPullFooter extends LinearLayout {
+public class PullFooter extends LinearLayout {
 	public final static int STATE_NORMAL = 0;
 	public final static int STATE_READY = 1;
 	public final static int STATE_LOADING = 2;
@@ -21,13 +21,13 @@ public class KPullFooter extends LinearLayout {
 	private TextView mHintView;
 	private KConfig config;
 
-	public KPullFooter(Context context, KConfig config) {
+	public PullFooter(Context context, KConfig config) {
 		super(context);
 		this.config = config;
 		initView(context);
 	}
 
-	public KPullFooter(Context context, AttributeSet attrs,  KConfig config) {
+	public PullFooter(Context context, AttributeSet attrs,  KConfig config) {
 		super(context, attrs);
 		this.config = config;
 		initView(context);
