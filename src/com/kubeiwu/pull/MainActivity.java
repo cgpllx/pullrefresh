@@ -1,6 +1,7 @@
 package com.kubeiwu.pull;
 
 import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.IKListViewListener;
+import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.OnXScrollListener;
 import com.kubeiwu.pull.pulltorefresh.listview.KListView;
 
 import android.app.Activity;
@@ -9,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ public class MainActivity extends Activity implements IKListViewListener {
 		kListView.setKListViewListener(this);
 		kListView.setPullLoadEnable(true);
 		kListView.setPullRefreshEnable(true);
+//		kListView.setOnScrollListener(this);
 		kListView.setAdapter(new BaseAdapter() {
 			
 			@Override
@@ -59,5 +63,6 @@ public class MainActivity extends Activity implements IKListViewListener {
 	public void onLoadMore() {
 		
 	}
+ 
 
 }

@@ -123,4 +123,6 @@ public interface PullFreshViewIF extends OnScrollListener {
 		}
 	}
 
+	public void setOnScrollListener(OnScrollListener l);
+
 }

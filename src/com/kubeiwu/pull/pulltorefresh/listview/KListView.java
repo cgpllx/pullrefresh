@@ -43,12 +43,8 @@ public class KListView extends ListView implements PullFreshViewIF {
 
 	public KListView(Context context, AttributeSet attrs, int defStyle, KConfig config) {
 		super(context, attrs, defStyle);
-		if (config == null) {
-			config = KConfig.getSimpleInstance();
-		}
-		mPullFreshController = new PullFreshController(context, this);
-		mPullFreshController.initConfig(config, attrs);
-		mPullFreshController.initWithContext(context, config);
+		mPullFreshController = new PullFreshController(context, attrs, defStyle, config, this);
+
 	}
 
 	@Override
@@ -93,11 +89,6 @@ public class KListView extends ListView implements PullFreshViewIF {
 	public void computeScroll() {
 		mPullFreshController.computeScroll();
 		super.computeScroll();
-	}
-
-	@Override
-	public void setOnScrollListener(OnScrollListener l) {
-		mPullFreshController.setOnScrollListener(l);
 	}
 
 	@Override

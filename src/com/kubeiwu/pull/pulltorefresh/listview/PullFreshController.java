@@ -36,9 +36,14 @@ public class PullFreshController {
 
 	private final static float OFFSET_RADIO = 1.8f; // support iOS like pull
 
-	public PullFreshController(Context context, PullFreshViewIF mAbsListView) {
+	public PullFreshController(Context context, AttributeSet attrs, int defStyle, KConfig config, PullFreshViewIF mAbsListView) {
 		this.mAbsListView = mAbsListView;
 		this.context = context;
+		if (config == null) {
+			config = KConfig.getSimpleInstance();
+		}
+		initConfig(config, attrs);
+		initWithContext(context, config);
 	}
 
 	public void setAdapter(ListAdapter adapter) {
@@ -106,18 +111,25 @@ public class PullFreshController {
 		case MotionEvent.ACTION_MOVE:
 			final float deltaY = ev.getRawY() - mLastY;
 			mLastY = ev.getRawY();
-			if (((AbsListView)mAbsListView).getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
+			System.out.println("((AbsListView)mAbsListView).getLastVisiblePosition()=" + ((AbsListView) mAbsListView).getLastVisiblePosition());
+			System.out.println("(mFooterView.getBottomMargin()=" + mFooterView.getBottomMargin());
+			System.out.println("deltaY=" + deltaY);
+			System.out.println("mTotalItemCount=" + mTotalItemCount);
+			if (((AbsListView) mAbsListView).getFirstVisiblePosition() == 0 && (mHeaderView.getVisiableHeight() > 0 || deltaY > 0)) {
 				// the first item is showing, header has shown or pull down.
+				System.out.println("onTouchEvent44444444");
 				updateHeaderHeight(deltaY / OFFSET_RADIO);
 				invokeOnScrolling();
-			} else if (((AbsListView)mAbsListView).getLastVisiblePosition() == mTotalItemCount - 1 && (mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
+			} else if (((AbsListView) mAbsListView).getLastVisiblePosition() == mTotalItemCount - 1 && (mFooterView.getBottomMargin() > 0 || deltaY < 0)) {
+				System.out.println("onTouchEvent5555555");
 				// last item, already pulled up or want to pull up.
 				updateFooterHeight(-deltaY / OFFSET_RADIO);
 			}
+			System.out.println("onTouchEvent666");
 			break;
 		default:
 			mLastY = -1; // reset
-			if (((AbsListView)mAbsListView).getFirstVisiblePosition() == 0) {
+			if (((AbsListView) mAbsListView).getFirstVisiblePosition() == 0) {
 				// invoke refresh
 				if (mEnablePullRefresh && mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
 					mPullRefreshing = true;
@@ -127,7 +139,7 @@ public class PullFreshController {
 					}
 				}
 				resetHeaderHeight();
-			} else if (((AbsListView)mAbsListView).getLastVisiblePosition() == mTotalItemCount - 1) {
+			} else if (((AbsListView) mAbsListView).getLastVisiblePosition() == mTotalItemCount - 1) {
 				// invoke load more.
 				if (mEnablePullLoad && mFooterView.getBottomMargin() > PULL_LOAD_MORE_DELTA) {
 					startLoadMore();
@@ -164,7 +176,7 @@ public class PullFreshController {
 			} else {
 				mFooterView.setBottomMargin(mScroller.getCurrY());
 			}
-			((View)mAbsListView).postInvalidate();
+			((View) mAbsListView).postInvalidate();
 			invokeOnScrolling();
 		}
 	}
@@ -188,14 +200,17 @@ public class PullFreshController {
 		mScrollBack = SCROLLBACK_HEADER;
 		mScroller.startScroll(0, height, 0, finalHeight - height, SCROLL_DURATION);
 		// trigger computeScroll
-		((View)mAbsListView).invalidate();
+		((View) mAbsListView).invalidate();
 	}
 
 	private void invokeOnScrolling() {
+		System.out.println("invokeOnScrolling" + "1111111111");
 		if (mScrollListener instanceof OnXScrollListener) {
+			System.out.println("invokeOnScrolling" + "222222");
 			OnXScrollListener l = (OnXScrollListener) mScrollListener;
-			l.onXScrolling((View) mAbsListView);
+			l.onXScrolling((AbsListView) mAbsListView);
 		}
+		System.out.println("invokeOnScrolling" + "333333333");
 	}
 
 	private void updateHeaderHeight(float delta) {
@@ -207,7 +222,7 @@ public class PullFreshController {
 				mHeaderView.setState(KPullFreshHeader.STATE_NORMAL);
 			}
 		}
-		((AbsListView)mAbsListView).setSelection(0); // scroll to top each time
+		((AbsListView) mAbsListView).setSelection(0); // scroll to top each time
 	}
 
 	private void updateFooterHeight(float delta) {
@@ -220,6 +235,7 @@ public class PullFreshController {
 				mFooterView.setState(KPullFreshFooter.STATE_NORMAL);
 			}
 		}
+		System.out.println("updateFooterHeight555555555");
 		mFooterView.setBottomMargin(height);
 
 		// setSelection(mTotalItemCount - 1); // scroll to bottom
@@ -230,7 +246,7 @@ public class PullFreshController {
 		if (bottomMargin > 0) {
 			mScrollBack = SCROLLBACK_FOOTER;
 			mScroller.startScroll(0, bottomMargin, 0, -bottomMargin, SCROLL_DURATION);
-			((View)mAbsListView).invalidate();
+			((View) mAbsListView).invalidate();
 		}
 	}
 
@@ -270,7 +286,7 @@ public class PullFreshController {
 		this.mScroller = new Scroller(context, new DecelerateInterpolator());
 		// XListView need the scroll event, and it will dispatch the event to
 		// user's listener (as a proxy).
-		((AbsListView)mAbsListView).setOnScrollListener(mAbsListView);
+		mAbsListView.setOnScrollListener(mAbsListView);
 		// stringHoder = new StringHoder(header_hint_normal, header_hint_ready,
 		// header_hint_loading, footer_hint_ready, footer_hint_normal,
 		// footer_heaght, header_heaght, arrow_pic);
