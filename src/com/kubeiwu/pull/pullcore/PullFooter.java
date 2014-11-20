@@ -106,9 +106,9 @@ public class PullFooter extends LinearLayout {
 		moreView.setLayoutParams(new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT,
 				android.view.ViewGroup.LayoutParams.WRAP_CONTENT));
 
-		mContentView = moreView.findViewById(R.id.klistview_footer_content);
-		mProgressBar = moreView.findViewById(R.id.klistview_footer_progressbar);
-		mHintView = (TextView) moreView.findViewById(R.id.klistview_footer_hint_textview);
+		mContentView = moreView.findViewById(IPullView.klistview_footer_content);
+		mProgressBar = moreView.findViewById(IPullView.klistview_footer_progressbar);
+		mHintView = (TextView) moreView.findViewById(IPullView.klistview_footer_hint_textview);
 	}
 
 }

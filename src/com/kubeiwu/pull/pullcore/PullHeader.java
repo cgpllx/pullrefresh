@@ -58,10 +58,10 @@ public class PullHeader extends LinearLayout {
 		addView(mContainer, lp);
 		setGravity(Gravity.BOTTOM);
 
-		mArrowImageView = (ImageView) findViewById(R.id.klistview_header_arrow);
+		mArrowImageView = (ImageView) findViewById(IPullView.klistview_header_arrow);
 		mArrowImageView.setImageResource(config.getArrow_pic());
-		mHintTextView = (TextView) findViewById(R.id.klistview_header_hint_textview);
-		mProgressBar = (ProgressBar) findViewById(R.id.klistview_header_progressbar);
+		mHintTextView = (TextView) findViewById(IPullView.klistview_header_hint_textview);
+		mProgressBar = (ProgressBar) findViewById(IPullView.klistview_header_progressbar);
 
 		mRotateUpAnim = new RotateAnimation(0.0f, -180.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		mRotateUpAnim.setDuration(ROTATE_ANIM_DURATION);

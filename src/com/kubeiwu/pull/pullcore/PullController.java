@@ -284,8 +284,8 @@ public class PullController implements OnScrollListener {
 		// footer_heaght, header_heaght, arrow_pic);
 		// init header view
 		this.mHeaderView = new PullHeader(context, config);
-		this.mHeaderViewContent = (RelativeLayout) this.mHeaderView.findViewById(R.id.klistview_header_content);
-		this.mHeaderTimeView = (TextView) this.mHeaderView.findViewById(R.id.klistview_header_time);
+		this.mHeaderViewContent = (RelativeLayout) this.mHeaderView.findViewById(IPullView.klistview_header_content);
+		this.mHeaderTimeView = (TextView) this.mHeaderView.findViewById(IPullView.klistview_header_time);
 		mAbsListView.addHeaderView(this.mHeaderView);
 
 		// init footer view

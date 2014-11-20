@@ -4,12 +4,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.ViewDebug.CapturedViewProperty;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import com.kubeiwu.pull.pullcore.PullController;
 import com.kubeiwu.pull.pullcore.IPullView;
+import com.kubeiwu.pull.pullcore.PullController;
 
 /**
  * @author cgpllx1@qq.com (www.kubeiwu.com)

@@ -4,7 +4,18 @@ import android.view.View;
 import android.widget.AbsListView.OnScrollListener;
 
 public interface IPullView {
-
+	
+	
+	int klistview_footer_content=1;
+	int klistview_footer_hint_textview=2;
+	int klistview_footer_progressbar=3;
+	int klistview_header_arrow=4;
+	int klistview_header_content=5;
+	int klistview_header_hint_textview=6;
+	int klistview_header_progressbar=7;
+	int klistview_header_text=8;
+	int klistview_header_time=9;
+	
 	/**
 	 * implements this interface to get refresh/load more event.
 	 */
@@ -30,6 +41,23 @@ public interface IPullView {
 
 	public void setKListViewListener(IKPullListener l);
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * you can listen ListView.OnScrollListener or this one. it will invoke onXScrolling when header/footer scroll back.
 	 */
