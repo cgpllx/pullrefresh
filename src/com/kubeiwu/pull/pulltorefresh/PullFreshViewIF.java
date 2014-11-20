@@ -3,12 +3,12 @@ package com.kubeiwu.pull.pulltorefresh;
 import android.view.View;
 import android.widget.AbsListView.OnScrollListener;
 
-public interface PullFreshViewIF extends OnScrollListener {
+public interface PullFreshViewIF {
 
 	/**
 	 * implements this interface to get refresh/load more event.
 	 */
-	public interface IKListViewListener {
+	public interface IKPullListener {
 		public void onRefresh();
 
 		public void onLoadMore();
@@ -21,6 +21,14 @@ public interface PullFreshViewIF extends OnScrollListener {
 	public void setPullRefreshEnable(boolean enable);
 
 	public void setPullLoadEnable(boolean enable);
+
+	public void stopRefresh();
+
+	public void stopLoadMore();
+
+	public void setRefreshTime(String time);
+
+	public void setKListViewListener(IKPullListener l);
 
 	/**
 	 * you can listen ListView.OnScrollListener or this one. it will invoke onXScrolling when header/footer scroll back.

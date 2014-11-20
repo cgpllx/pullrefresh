@@ -9,7 +9,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF;
-import com.kubeiwu.pull.pulltorefresh.gridview.HeaderFooterGridView;
 
 /**
  * @author cgpllx1@qq.com (www.kubeiwu.com)
@@ -17,7 +16,7 @@ import com.kubeiwu.pull.pulltorefresh.gridview.HeaderFooterGridView;
  */
 public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
 
-	private PullFreshController mPullFreshController;
+	private PullController mPullFreshController;
 
 	/**
 	 * @param context
@@ -47,7 +46,7 @@ public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
 		if (config == null) {
 			config = KConfig.getSimpleInstance();
 		}
-		mPullFreshController = new PullFreshController(context, attrs, defStyle, config, this);
+		mPullFreshController = new PullController(context, attrs, defStyle, config, this);
 		mPullFreshController.initConfig(config, attrs);
 		mPullFreshController.initWithContext(context, config);
 	}
@@ -96,17 +95,8 @@ public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
 		super.computeScroll();
 	}
 
-	@Override
-	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		mPullFreshController.onScrollStateChanged(view, scrollState);
-	}
 
-	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		mPullFreshController.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
-	}
-
-	public void setKListViewListener(IKListViewListener l) {
+	public void setKListViewListener(IKPullListener l) {
 		mPullFreshController.setKListViewListener(l);
 	}
 

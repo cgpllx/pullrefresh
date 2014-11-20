@@ -19,7 +19,7 @@ import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.KConfig;
  * @author  cgpllx1@qq.com (www.kubeiwu.com)
  * @date    2014-7-29
  */
-public class KPullFreshHeader extends LinearLayout {
+public class KPullHeader extends LinearLayout {
 	private LinearLayout mContainer;
 	private ImageView mArrowImageView;
 	private ProgressBar mProgressBar;
@@ -36,7 +36,7 @@ public class KPullFreshHeader extends LinearLayout {
 	public final static int STATE_REFRESHING = 2;
 	private KConfig config;
 
-	public KPullFreshHeader(Context context, KConfig config) {
+	public KPullHeader(Context context, KConfig config) {
 		super(context);
 		this.config = config;
 		initView(context);
@@ -46,7 +46,7 @@ public class KPullFreshHeader extends LinearLayout {
 	 * @param context
 	 * @param attrs
 	 */
-	public KPullFreshHeader(Context context, AttributeSet attrs, KConfig config) {
+	public KPullHeader(Context context, AttributeSet attrs, KConfig config) {
 		super(context, attrs);
 		this.config = config;
 		initView(context);

@@ -10,7 +10,7 @@ import com.kubeiwu.pull.R;
 import com.kubeiwu.pull.ViewFactory;
 import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.KConfig;
 
-public class KPullFreshFooter extends LinearLayout {
+public class KPullFooter extends LinearLayout {
 	public final static int STATE_NORMAL = 0;
 	public final static int STATE_READY = 1;
 	public final static int STATE_LOADING = 2;
@@ -22,13 +22,13 @@ public class KPullFreshFooter extends LinearLayout {
 	private TextView mHintView;
 	private KConfig config;
 
-	public KPullFreshFooter(Context context, KConfig config) {
+	public KPullFooter(Context context, KConfig config) {
 		super(context);
 		this.config = config;
 		initView(context);
 	}
 
-	public KPullFreshFooter(Context context, AttributeSet attrs,  KConfig config) {
+	public KPullFooter(Context context, AttributeSet attrs,  KConfig config) {
 		super(context, attrs);
 		this.config = config;
 		initView(context);

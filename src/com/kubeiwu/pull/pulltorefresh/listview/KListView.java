@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.AbsListView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -16,11 +15,8 @@ import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF;
  */
 public class KListView extends ListView implements PullFreshViewIF {
 
-	private PullFreshController mPullFreshController;
-
-	/**
-	 * @param context
-	 */
+	private PullController mPullFreshController;
+ 
 	public KListView(Context context) {
 		this(context, null, 0, null);
 	}
@@ -33,9 +29,6 @@ public class KListView extends ListView implements PullFreshViewIF {
 		this(context, attrs, 0, null);
 	}
 
-	public KListView(Context context, AttributeSet attrs, KConfig config) {
-		this(context, attrs, 0, config);
-	}
 
 	public KListView(Context context, AttributeSet attrs, int defStyle) {
 		this(context, attrs, defStyle, null);
@@ -43,8 +36,7 @@ public class KListView extends ListView implements PullFreshViewIF {
 
 	public KListView(Context context, AttributeSet attrs, int defStyle, KConfig config) {
 		super(context, attrs, defStyle);
-		mPullFreshController = new PullFreshController(context, attrs, defStyle, config, this);
-
+		mPullFreshController = new PullController(context, attrs, defStyle, config, this);
 	}
 
 	@Override
@@ -52,7 +44,7 @@ public class KListView extends ListView implements PullFreshViewIF {
 		mPullFreshController.setAdapter(adapter);
 		super.setAdapter(adapter);
 	}
-
+	@Override
 	public void setPullRefreshEnable(boolean enable) {
 		mPullFreshController.setPullRefreshEnable(enable);
 	}
@@ -62,18 +54,19 @@ public class KListView extends ListView implements PullFreshViewIF {
 	 * 
 	 * @param enable
 	 */
+	@Override
 	public void setPullLoadEnable(boolean enable) {
 		mPullFreshController.setPullLoadEnable(enable);
 	}
-
+	@Override
 	public void stopRefresh() {
 		mPullFreshController.stopRefresh();
 	}
-
+	@Override
 	public void stopLoadMore() {
 		mPullFreshController.stopLoadMore();
 	}
-
+	@Override
 	public void setRefreshTime(String time) {
 		mPullFreshController.setRefreshTime(time);
 	}
@@ -90,18 +83,9 @@ public class KListView extends ListView implements PullFreshViewIF {
 		mPullFreshController.computeScroll();
 		super.computeScroll();
 	}
-
+ 
 	@Override
-	public void onScrollStateChanged(AbsListView view, int scrollState) {
-		mPullFreshController.onScrollStateChanged(view, scrollState);
-	}
-
-	@Override
-	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		mPullFreshController.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
-	}
-
-	public void setKListViewListener(IKListViewListener l) {
+	public void setKListViewListener(IKPullListener l) {
 		mPullFreshController.setKListViewListener(l);
 	}
 

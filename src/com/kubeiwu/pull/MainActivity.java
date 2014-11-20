@@ -1,10 +1,12 @@
 package com.kubeiwu.pull;
 
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.IKListViewListener;
+import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF;
+import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.IKPullListener;
 import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.OnXScrollListener;
 import com.kubeiwu.pull.pulltorefresh.listview.KListView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,12 +18,17 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements IKListViewListener {
+public class MainActivity extends Activity implements IKPullListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	
+		KListView kListView = text1();
+		
+		setContentView(kListView);
+	}
+	private KListView text1() {
 		KListView kListView=new KListView(this);
 		kListView.setKListViewListener(this);
 		kListView.setPullLoadEnable(true);
@@ -51,7 +58,7 @@ public class MainActivity extends Activity implements IKListViewListener {
 				return 200;
 			}
 		});
-		setContentView(kListView);
+		return kListView;
 	}
 
 	@Override

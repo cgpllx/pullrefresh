@@ -17,11 +17,11 @@ import android.widget.TextView;
 
 import com.kubeiwu.pull.R;
 import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF;
-import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.IKListViewListener;
+import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.IKPullListener;
 import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.KConfig;
 import com.kubeiwu.pull.pulltorefresh.PullFreshViewIF.OnXScrollListener;
 
-public class PullFreshController {
+public class PullController implements OnScrollListener {
 	private PullFreshViewIF mAbsListView;
 	private Context context;
 	private static final int SCROLLBACK_HEADER = 0;
@@ -36,7 +36,7 @@ public class PullFreshController {
 
 	private final static float OFFSET_RADIO = 1.8f; // support iOS like pull
 
-	public PullFreshController(Context context, AttributeSet attrs, int defStyle, KConfig config, PullFreshViewIF mAbsListView) {
+	public PullController(Context context, AttributeSet attrs, int defStyle, KConfig config, PullFreshViewIF mAbsListView) {
 		this.mAbsListView = mAbsListView;
 		this.context = context;
 		if (config == null) {
@@ -44,6 +44,14 @@ public class PullFreshController {
 		}
 		initConfig(config, attrs);
 		initWithContext(context, config);
+//		((AbsListView)mAbsListView).setOnTouchListener(new OnTouchListener() {
+//			
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				// TODO Auto-generated method stub
+//				return false;
+//			}
+//		});
 	}
 
 	public void setAdapter(ListAdapter adapter) {
@@ -66,7 +74,7 @@ public class PullFreshController {
 		} else {
 			this.mPullLoading = false;
 			this.mFooterView.show();
-			this.mFooterView.setState(KPullFreshFooter.STATE_NORMAL);
+			this.mFooterView.setState(KPullFooter.STATE_NORMAL);
 			// both "pull up" and "click" will invoke load more.
 			this.mFooterView.setOnClickListener(new OnClickListener() {
 				@Override
@@ -79,7 +87,7 @@ public class PullFreshController {
 
 	public void startLoadMore() {
 		this.mPullLoading = true;
-		this.mFooterView.setState(KPullFreshFooter.STATE_LOADING);
+		this.mFooterView.setState(KPullFooter.STATE_LOADING);
 		if (this.mListViewListener != null) {
 			this.mListViewListener.onLoadMore();
 		}
@@ -133,7 +141,7 @@ public class PullFreshController {
 				// invoke refresh
 				if (mEnablePullRefresh && mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
 					mPullRefreshing = true;
-					mHeaderView.setState(KPullFreshHeader.STATE_REFRESHING);
+					mHeaderView.setState(KPullHeader.STATE_REFRESHING);
 					if (mListViewListener != null) {
 						mListViewListener.onRefresh();
 					}
@@ -165,7 +173,7 @@ public class PullFreshController {
 	public void stopLoadMore() {
 		if (mPullLoading == true) {
 			mPullLoading = false;
-			mFooterView.setState(KPullFreshFooter.STATE_NORMAL);
+			mFooterView.setState(KPullFooter.STATE_NORMAL);
 		}
 	}
 
@@ -217,9 +225,9 @@ public class PullFreshController {
 		mHeaderView.setVisiableHeight((int) delta + mHeaderView.getVisiableHeight());
 		if (mEnablePullRefresh && !mPullRefreshing) { // 未处于刷新状态，更新箭头
 			if (mHeaderView.getVisiableHeight() > mHeaderViewHeight) {
-				mHeaderView.setState(KPullFreshHeader.STATE_READY);
+				mHeaderView.setState(KPullHeader.STATE_READY);
 			} else {
-				mHeaderView.setState(KPullFreshHeader.STATE_NORMAL);
+				mHeaderView.setState(KPullHeader.STATE_NORMAL);
 			}
 		}
 		((AbsListView) mAbsListView).setSelection(0); // scroll to top each time
@@ -230,9 +238,9 @@ public class PullFreshController {
 		if (mEnablePullLoad && !mPullLoading) {
 			if (height > PULL_LOAD_MORE_DELTA) { // height enough to invoke load
 													// more.
-				mFooterView.setState(KPullFreshFooter.STATE_READY);
+				mFooterView.setState(KPullFooter.STATE_READY);
 			} else {
-				mFooterView.setState(KPullFreshFooter.STATE_NORMAL);
+				mFooterView.setState(KPullFooter.STATE_NORMAL);
 			}
 		}
 		System.out.println("updateFooterHeight555555555");
@@ -264,7 +272,7 @@ public class PullFreshController {
 		}
 	}
 
-	public void setKListViewListener(IKListViewListener l) {
+	public void setKListViewListener(IKPullListener l) {
 		mListViewListener = l;
 	}
 
@@ -286,18 +294,18 @@ public class PullFreshController {
 		this.mScroller = new Scroller(context, new DecelerateInterpolator());
 		// XListView need the scroll event, and it will dispatch the event to
 		// user's listener (as a proxy).
-		mAbsListView.setOnScrollListener(mAbsListView);
+		mAbsListView.setOnScrollListener(this);
 		// stringHoder = new StringHoder(header_hint_normal, header_hint_ready,
 		// header_hint_loading, footer_hint_ready, footer_hint_normal,
 		// footer_heaght, header_heaght, arrow_pic);
 		// init header view
-		this.mHeaderView = new KPullFreshHeader(context, config);
+		this.mHeaderView = new KPullHeader(context, config);
 		this.mHeaderViewContent = (RelativeLayout) this.mHeaderView.findViewById(R.id.klistview_header_content);
 		this.mHeaderTimeView = (TextView) this.mHeaderView.findViewById(R.id.klistview_header_time);
 		mAbsListView.addHeaderView(this.mHeaderView);
 
 		// init footer view
-		this.mFooterView = new KPullFreshFooter(context, config);
+		this.mFooterView = new KPullFooter(context, config);
 		/* 2014 04 22 cgp */
 		this.mFooterView.hide();
 		/* 2014 04 22 cgp */
@@ -319,10 +327,10 @@ public class PullFreshController {
 	private OnScrollListener mScrollListener; // user's scroll listener
 
 	// the interface to trigger refresh and load more.
-	private IKListViewListener mListViewListener;
+	private IKPullListener mListViewListener;
 
 	// -- header view
-	private KPullFreshHeader mHeaderView;
+	private KPullHeader mHeaderView;
 
 	// header view content, use it to calculate the Header's height. And hide it
 	// when disable pull refresh.
@@ -337,7 +345,7 @@ public class PullFreshController {
 	private boolean mPullRefreshing = false; // is refreashing.
 
 	// -- footer view
-	private KPullFreshFooter mFooterView;
+	private KPullFooter mFooterView;
 
 	private boolean mEnablePullLoad = false;// +++++++++++++++++++++++++++加载
 
