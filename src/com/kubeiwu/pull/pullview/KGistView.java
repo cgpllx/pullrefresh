@@ -52,8 +52,6 @@ public class KGistView extends HeaderFooterGridView implements PullFreshViewIF {
 			config = KConfig.getSimpleInstance();
 		}
 		mPullFreshController = new PullController(context, attrs, defStyle, config, this);
-		mPullFreshController.initConfig(config, attrs);
-		mPullFreshController.initWithContext(context, config);
 	}
 
 	@Override
