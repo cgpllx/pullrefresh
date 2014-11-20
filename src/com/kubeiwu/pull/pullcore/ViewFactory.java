@@ -10,55 +10,53 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.kubeiwu.pull.R;
-
 /**
  * @author 耳东    www.kubeiwu.com
  *
  */
 public class ViewFactory {  
-	public static View getKListview_footer(Context mContext, int headerHeaght) {
+	public static View getPullFooter(Context mContext, int headerHeaght) {
 		LinearLayout mLinearLayout = new LinearLayout(mContext);
 		mLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
 		mLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		mLinearLayout.setGravity(Gravity.BOTTOM);
 		//----------------
-		RelativeLayout xlistview_footer_content = new RelativeLayout(mContext);
-		xlistview_footer_content.setId(IPullView.klistview_footer_content);
-		xlistview_footer_content.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, headerHeaght));
-		xlistview_footer_content.setPadding(0, 0, 0, 0);
+		RelativeLayout pull_footer_content = new RelativeLayout(mContext);
+		pull_footer_content.setId(IPullView.pull_footer_content);
+		pull_footer_content.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, headerHeaght));
+		pull_footer_content.setPadding(0, 0, 0, 0);
 		//-----------------------
 		ProgressBar pull_footer_progressbar = new ProgressBar(mContext);
-		pull_footer_progressbar.setId(IPullView.klistview_footer_progressbar);
+		pull_footer_progressbar.setId(IPullView.pull_footer_progressbar);
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
 		pull_footer_progressbar.setLayoutParams(layoutParams);
 		//-------------------------
 		TextView pull_footer_hint_textview = new TextView(mContext);
-		pull_footer_hint_textview.setId(IPullView.klistview_footer_hint_textview);
+		pull_footer_hint_textview.setId(IPullView.pull_footer_hint_textview);
 		RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		layoutParams2.addRule(RelativeLayout.CENTER_IN_PARENT);
 		pull_footer_hint_textview.setLayoutParams(layoutParams2);
 		pull_footer_hint_textview.setGravity(Gravity.CENTER);
 		//-----------------------
-		mLinearLayout.addView(xlistview_footer_content);
-		xlistview_footer_content.addView(pull_footer_progressbar);
-		xlistview_footer_content.addView(pull_footer_hint_textview);
+		mLinearLayout.addView(pull_footer_content);
+		pull_footer_content.addView(pull_footer_progressbar);
+		pull_footer_content.addView(pull_footer_hint_textview);
 		return mLinearLayout;
 	}
 
-	public static View getKListview_header(Context mContext, int headerHeaght) {
+	public static View getPullHeader(Context mContext, int headerHeaght) {
 		LinearLayout mLinearLayout = new LinearLayout(mContext);
 		mLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
 		mLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 		mLinearLayout.setGravity(Gravity.BOTTOM);
 		//----------------
 		RelativeLayout pull_header_content = new RelativeLayout(mContext);
-		pull_header_content.setId(IPullView.klistview_header_content);
+		pull_header_content.setId(IPullView.pull_header_content);
 		pull_header_content.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, headerHeaght));
 		//-----------------
 		LinearLayout pull_header_text = new LinearLayout(mContext);
-		pull_header_text.setId(IPullView.klistview_header_text);
+		pull_header_text.setId(IPullView.pull_header_text);
 		pull_header_text.setOrientation(LinearLayout.VERTICAL);
 		RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -66,7 +64,7 @@ public class ViewFactory {
 		pull_header_text.setGravity(Gravity.CENTER);
 		//---------------------------
 		TextView pull_header_hint_textview = new TextView(mContext);
-		pull_header_hint_textview.setId(IPullView.klistview_header_hint_textview);
+		pull_header_hint_textview.setId(IPullView.pull_header_hint_textview);
 		pull_header_hint_textview.setLayoutParams(new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
 		LinearLayout mLinearLayoutgone = new LinearLayout(mContext);
@@ -80,22 +78,22 @@ public class ViewFactory {
 		textView.setTextSize(15);
 		//-------------------------
 		TextView pull_header_time = new TextView(mContext);
-		pull_header_time.setId(IPullView.klistview_header_time);
+		pull_header_time.setId(IPullView.pull_header_time);
 		pull_header_time.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		pull_header_time.setTextSize(12);
 		//-----------------------
 		ImageView pull_header_arrow = new ImageView(mContext);
-		pull_header_arrow.setId(IPullView.klistview_header_arrow);
+		pull_header_arrow.setId(IPullView.pull_header_arrow);
 		RelativeLayout.LayoutParams layoutParams2 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		layoutParams2.addRule(RelativeLayout.ALIGN_LEFT, IPullView.klistview_header_text);
+		layoutParams2.addRule(RelativeLayout.ALIGN_LEFT, IPullView.pull_header_text);
 		layoutParams2.addRule(RelativeLayout.CENTER_VERTICAL);
 		layoutParams2.leftMargin = -50;
 		pull_header_arrow.setLayoutParams(layoutParams2);
 		//-----------------------
 		ProgressBar pull_header_progressbar = new ProgressBar(mContext);
-		pull_header_progressbar.setId(IPullView.klistview_header_progressbar);
+		pull_header_progressbar.setId(IPullView.pull_header_progressbar);
 		RelativeLayout.LayoutParams layoutParams3 = new RelativeLayout.LayoutParams(40, 40);
-		layoutParams3.addRule(RelativeLayout.ALIGN_LEFT, IPullView.klistview_header_text);
+		layoutParams3.addRule(RelativeLayout.ALIGN_LEFT, IPullView.pull_header_text);
 		layoutParams3.addRule(RelativeLayout.CENTER_VERTICAL);
 		layoutParams3.leftMargin = -55;
 		pull_header_progressbar.setLayoutParams(layoutParams3);

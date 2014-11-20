@@ -1,21 +1,22 @@
 package com.kubeiwu.pull.pullcore;
 
+import com.kubeiwu.pull.R;
+
 import android.view.View;
 import android.widget.AbsListView.OnScrollListener;
 
 public interface IPullView {
-	
-	
-	int klistview_footer_content=1;
-	int klistview_footer_hint_textview=2;
-	int klistview_footer_progressbar=3;
-	int klistview_header_arrow=4;
-	int klistview_header_content=5;
-	int klistview_header_hint_textview=6;
-	int klistview_header_progressbar=7;
-	int klistview_header_text=8;
-	int klistview_header_time=9;
-	
+
+	int pull_footer_content = 0x0001;
+	int pull_footer_hint_textview = 0x0002;
+	int pull_footer_progressbar = 0x0003;
+	int pull_header_arrow = 0x0004;
+	int pull_header_content = 0x0005;
+	int pull_header_hint_textview = 0x0006;
+	int pull_header_progressbar = 0x0007;
+	int pull_header_text = 0x0008;
+	int pull_header_time = 0x0009;
+
 	/**
 	 * implements this interface to get refresh/load more event.
 	 */
@@ -41,23 +42,6 @@ public interface IPullView {
 
 	public void setKListViewListener(IKPullListener l);
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	/**
 	 * you can listen ListView.OnScrollListener or this one. it will invoke onXScrolling when header/footer scroll back.
 	 */
@@ -77,7 +61,7 @@ public interface IPullView {
 				header_hint_loading = "\u6b63\u5728\u52a0\u8f7d\u002e\u002e\u002e", // 正在加载...
 				footer_hint_ready = "\u677e\u5f00\u52a0\u8f7d\u6570\u636e", // 松开加载数据
 				footer_hint_normal = "\u4e0a\u62c9\u52a0\u8f7d";// 上拉加载
-		private int footer_heaght, header_heaght = 60, arrow_pic;
+		private int footer_heaght, header_heaght = 60, arrow_pic = R.drawable.xlistview_arrow;
 
 		private KConfig() {
 		}

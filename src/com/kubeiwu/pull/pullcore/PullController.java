@@ -2,6 +2,8 @@ package com.kubeiwu.pull.pullcore;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,11 +29,14 @@ public class PullController implements OnScrollListener {
 
 	private static final int SCROLLBACK_FOOTER = 1;
 
-	private static final int SCROLL_DURATION = 400; // scroll back duration
+	private static final int SCROLL_DURATION = 400; // 自动回滚的时间（时间越短，滚动越快）
 
 	private static final int PULL_LOAD_MORE_DELTA = 50; // when pull up >= 50px
 	// at bottom, trigger
 	// load more.
+	private boolean isPullLoadError = false;
+
+	private boolean isAutoLoad = false;
 
 	private final static float OFFSET_RADIO = 1.8f; // support iOS like pull
 
@@ -78,23 +83,31 @@ public class PullController implements OnScrollListener {
 
 	public void startLoadMore() {
 		this.mPullLoading = true;
-		this.mFooterView.setState(PullFooter.STATE_LOADING);
+		this.isPullLoadError = false;
+		if (mFooterView != null) {
+			this.mFooterView.setState(PullFooter.STATE_LOADING);
+		}
 		if (this.mListViewListener != null) {
 			this.mListViewListener.onLoadMore();
 		}
 	}
 
+	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		if (mScrollListener != null) {
 			mScrollListener.onScrollStateChanged(view, scrollState);
 		}
 	}
 
+	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		// send to user's listener
 		mTotalItemCount = totalItemCount;
 		if (mScrollListener != null) {
 			mScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
+		}
+		if (this.isAutoLoad && !isPullLoadError && mEnablePullLoad && !mPullLoading && ((AbsListView) mAbsListView).getLastVisiblePosition() >= totalItemCount - 2) {
+			startLoadMore();
 		}
 	}
 
@@ -147,7 +160,14 @@ public class PullController implements OnScrollListener {
 	public void stopRefresh() {
 		if (mPullRefreshing == true) {
 			mPullRefreshing = false;
-			resetHeaderHeight();
+			mHeaderView.setState(PullHeader.STATE_COMPLETE);
+			new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+				@Override
+				public void run() {
+					resetHeaderHeight();
+				}
+			}, 500);
+
 		}
 	};
 
@@ -196,13 +216,10 @@ public class PullController implements OnScrollListener {
 	}
 
 	private void invokeOnScrolling() {
-		System.out.println("invokeOnScrolling" + "1111111111");
 		if (mScrollListener instanceof OnXScrollListener) {
-			System.out.println("invokeOnScrolling" + "222222");
 			OnXScrollListener l = (OnXScrollListener) mScrollListener;
 			l.onXScrolling((AbsListView) mAbsListView);
 		}
-		System.out.println("invokeOnScrolling" + "333333333");
 	}
 
 	private void updateHeaderHeight(float delta) {
@@ -227,7 +244,6 @@ public class PullController implements OnScrollListener {
 				mFooterView.setState(PullFooter.STATE_NORMAL);
 			}
 		}
-		System.out.println("updateFooterHeight555555555");
 		mFooterView.setBottomMargin(height);
 
 		// setSelection(mTotalItemCount - 1); // scroll to bottom
@@ -284,8 +300,8 @@ public class PullController implements OnScrollListener {
 		// footer_heaght, header_heaght, arrow_pic);
 		// init header view
 		this.mHeaderView = new PullHeader(context, config);
-		this.mHeaderViewContent = (RelativeLayout) this.mHeaderView.findViewById(IPullView.klistview_header_content);
-		this.mHeaderTimeView = (TextView) this.mHeaderView.findViewById(IPullView.klistview_header_time);
+		this.mHeaderViewContent = (RelativeLayout) this.mHeaderView.findViewById(IPullView.pull_header_content);
+		this.mHeaderTimeView = (TextView) this.mHeaderView.findViewById(IPullView.pull_header_time);
 		mAbsListView.addHeaderView(this.mHeaderView);
 
 		// init footer view
@@ -347,23 +363,23 @@ public class PullController implements OnScrollListener {
 		if (attrs != null) {
 			TypedArray a = null;
 			try {
-				a = context.obtainStyledAttributes(attrs, R.styleable.KListView);
-				if (a.hasValue(R.styleable.KListView_header_hint_normal))
-					config.setHeader_hint_normal(a.getString(R.styleable.KListView_header_hint_normal));
-				if (a.hasValue(R.styleable.KListView_header_hint_ready))
-					config.setHeader_hint_ready(a.getString(R.styleable.KListView_header_hint_ready));
-				if (a.hasValue(R.styleable.KListView_header_hint_loading))
-					config.setHeader_hint_loading(a.getString(R.styleable.KListView_header_hint_loading));
-				if (a.hasValue(R.styleable.KListView_footer_hint_ready))
-					config.setFooter_hint_ready(a.getString(R.styleable.KListView_footer_hint_ready));
-				if (a.hasValue(R.styleable.KListView_footer_hint_normal))
-					config.setFooter_hint_normal(a.getString(R.styleable.KListView_footer_hint_normal));
-				if (a.hasValue(R.styleable.KListView_header_heaght))
-					config.setHeader_heaght(a.getInt(R.styleable.KListView_header_heaght, 60));
-				if (a.hasValue(R.styleable.KListView_footer_heaght))
-					config.setFooter_heaght(a.getInt(R.styleable.KListView_footer_heaght, 60));
-				if (a.hasValue(R.styleable.KListView_arrow_pic))
-					config.setArrow_pic(a.getResourceId(R.styleable.KListView_arrow_pic, R.drawable.xlistview_arrow));
+				a = context.obtainStyledAttributes(attrs, R.styleable.KPull);
+				if (a.hasValue(R.styleable.KPull_header_hint_normal))
+					config.setHeader_hint_normal(a.getString(R.styleable.KPull_header_hint_normal));
+				if (a.hasValue(R.styleable.KPull_header_hint_ready))
+					config.setHeader_hint_ready(a.getString(R.styleable.KPull_header_hint_ready));
+				if (a.hasValue(R.styleable.KPull_header_hint_loading))
+					config.setHeader_hint_loading(a.getString(R.styleable.KPull_header_hint_loading));
+				if (a.hasValue(R.styleable.KPull_footer_hint_ready))
+					config.setFooter_hint_ready(a.getString(R.styleable.KPull_footer_hint_ready));
+				if (a.hasValue(R.styleable.KPull_footer_hint_normal))
+					config.setFooter_hint_normal(a.getString(R.styleable.KPull_footer_hint_normal));
+				if (a.hasValue(R.styleable.KPull_header_heaght))
+					config.setHeader_heaght(a.getInt(R.styleable.KPull_header_heaght, 60));
+				if (a.hasValue(R.styleable.KPull_footer_heaght))
+					config.setFooter_heaght(a.getInt(R.styleable.KPull_footer_heaght, 60));
+				if (a.hasValue(R.styleable.KPull_arrow_pic))
+					config.setArrow_pic(a.getResourceId(R.styleable.KPull_arrow_pic, R.drawable.xlistview_arrow));
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -372,5 +388,20 @@ public class PullController implements OnScrollListener {
 				}
 			}
 		}
+	}
+
+	public void setPullLoadError() {
+		this.isPullLoadError = true;
+		stopLoadMore();
+		mFooterView.setState(PullFooter.STATE_ERROR);
+	}
+
+	public void setPullRefreshError() {
+		stopRefresh();
+		mHeaderView.setState(PullHeader.STATE_ERROR);
+	}
+
+	public void setOnAutoLoad(boolean isAutoLoad) {
+		this.isAutoLoad = isAutoLoad;
 	}
 }

@@ -65,6 +65,18 @@ public class KListView extends ListView implements IPullView {
 		mPullFreshController.stopLoadMore();
 	}
 
+	public void setPullLoadError() {
+		mPullFreshController.setPullLoadError();
+	}
+
+	public void setPullRefreshError() {
+		mPullFreshController.setPullRefreshError();
+	}
+
+	public void setOnAutoLoad(boolean isAutoLoad) {
+		mPullFreshController.setOnAutoLoad(isAutoLoad);
+	}
+
 	@Override
 	public void setRefreshTime(String time) {
 		mPullFreshController.setRefreshTime(time);

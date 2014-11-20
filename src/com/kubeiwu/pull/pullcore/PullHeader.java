@@ -15,10 +15,11 @@ import com.kubeiwu.pull.R;
 import com.kubeiwu.pull.pullcore.IPullView.KConfig;
 
 /**
- * @author  cgpllx1@qq.com (www.kubeiwu.com)
- * @date    2014-7-29
+ * @author cgpllx1@qq.com (www.kubeiwu.com)
+ * @date 2014-7-29
  */
 public class PullHeader extends LinearLayout {
+
 	private LinearLayout mContainer;
 	private ImageView mArrowImageView;
 	private ProgressBar mProgressBar;
@@ -33,7 +34,9 @@ public class PullHeader extends LinearLayout {
 	public final static int STATE_NORMAL = 0;
 	public final static int STATE_READY = 1;
 	public final static int STATE_REFRESHING = 2;
+	public final static int STATE_COMPLETE = 3;
 	private KConfig config;
+	public final static int STATE_ERROR = 4;
 
 	public PullHeader(Context context, KConfig config) {
 		super(context);
@@ -54,15 +57,17 @@ public class PullHeader extends LinearLayout {
 	private void initView(Context context) {
 		// 初始情况，设置下拉刷新view高度为0
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(android.view.ViewGroup.LayoutParams.MATCH_PARENT, 0);
-		mContainer = (LinearLayout) ViewFactory.getKListview_header(context, config.getHeader_heaght());
+		mContainer = (LinearLayout) ViewFactory.getPullHeader(context, config.getHeader_heaght());
 		addView(mContainer, lp);
 		setGravity(Gravity.BOTTOM);
 
-		mArrowImageView = (ImageView) findViewById(IPullView.klistview_header_arrow);
+		mArrowImageView = (ImageView) findViewById(IPullView.pull_header_arrow);
+		// mArrowImageView.setImageResource(R.drawable.xlistview_arrow);
 		mArrowImageView.setImageResource(config.getArrow_pic());
-		mHintTextView = (TextView) findViewById(IPullView.klistview_header_hint_textview);
-		mProgressBar = (ProgressBar) findViewById(IPullView.klistview_header_progressbar);
-
+		mHintTextView = (TextView) findViewById(IPullView.pull_header_hint_textview);
+		mHintTextView.setText(config.getHeader_hint_normal());
+		mProgressBar = (ProgressBar) findViewById(IPullView.pull_header_progressbar);
+		mProgressBar.setVisibility(View.GONE);
 		mRotateUpAnim = new RotateAnimation(0.0f, -180.0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 		mRotateUpAnim.setDuration(ROTATE_ANIM_DURATION);
 		mRotateUpAnim.setFillAfter(true);
@@ -70,7 +75,6 @@ public class PullHeader extends LinearLayout {
 		mRotateDownAnim.setDuration(ROTATE_ANIM_DURATION);
 		mRotateDownAnim.setFillAfter(true);
 	}
-
 
 	public void setState(int state) {
 		if (state == mState)
@@ -102,6 +106,14 @@ public class PullHeader extends LinearLayout {
 			break;
 		case STATE_REFRESHING:
 			mHintTextView.setText(config.getHeader_hint_loading());
+			break;
+		case STATE_COMPLETE:
+			mArrowImageView.setVisibility(View.INVISIBLE);
+			mHintTextView.setText("加载完成");
+			break;
+		case STATE_ERROR:
+			mArrowImageView.setVisibility(View.INVISIBLE);
+			mHintTextView.setText("刷新失败,请重试");
 			break;
 		default:
 		}

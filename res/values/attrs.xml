@@ -3,7 +3,7 @@
 
     <!-- 下拉刷新 -->
 
-    <declare-styleable name="KListView">
+    <declare-styleable name="KPull">
         <attr name="header_hint_normal" format="string" />
         <attr name="header_hint_ready" format="string" />
         <attr name="header_hint_loading" format="string" />
