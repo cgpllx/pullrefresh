@@ -1,16 +1,14 @@
 package com.kubeiwu.pull.pullview;
 
-import com.kubeiwu.pull.pullcore.PullController;
-import com.kubeiwu.pull.pullcore.PullFreshViewIF;
-import com.kubeiwu.pull.pullcore.PullFreshViewIF.IKPullListener;
-import com.kubeiwu.pull.pullcore.PullFreshViewIF.KConfig;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.kubeiwu.pull.pullcore.PullController;
+import com.kubeiwu.pull.pullcore.PullFreshViewIF;
 
 
 /**
@@ -52,12 +50,6 @@ public class KListView extends ListView implements PullFreshViewIF {
 	public void setPullRefreshEnable(boolean enable) {
 		mPullFreshController.setPullRefreshEnable(enable);
 	}
-
-	/**
-	 * enable or disable pull up load more feature.
-	 * 
-	 * @param enable
-	 */
 	@Override
 	public void setPullLoadEnable(boolean enable) {
 		mPullFreshController.setPullLoadEnable(enable);
