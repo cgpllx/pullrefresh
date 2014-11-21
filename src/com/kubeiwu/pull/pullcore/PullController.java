@@ -5,13 +5,14 @@ import android.content.res.TypedArray;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.AbsListView.OnScrollListener;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
@@ -364,22 +365,36 @@ public class PullController implements OnScrollListener {
 			TypedArray a = null;
 			try {
 				a = context.obtainStyledAttributes(attrs, R.styleable.KPull);
-				if (a.hasValue(R.styleable.KPull_header_hint_normal))
-					config.setHeader_hint_normal(a.getString(R.styleable.KPull_header_hint_normal));
-				if (a.hasValue(R.styleable.KPull_header_hint_ready))
-					config.setHeader_hint_ready(a.getString(R.styleable.KPull_header_hint_ready));
-				if (a.hasValue(R.styleable.KPull_header_hint_loading))
-					config.setHeader_hint_loading(a.getString(R.styleable.KPull_header_hint_loading));
-				if (a.hasValue(R.styleable.KPull_footer_hint_ready))
-					config.setFooter_hint_ready(a.getString(R.styleable.KPull_footer_hint_ready));
-				if (a.hasValue(R.styleable.KPull_footer_hint_normal))
-					config.setFooter_hint_normal(a.getString(R.styleable.KPull_footer_hint_normal));
-				if (a.hasValue(R.styleable.KPull_header_heaght))
-					config.setHeader_heaght(a.getInt(R.styleable.KPull_header_heaght, 60));
-				if (a.hasValue(R.styleable.KPull_footer_heaght))
-					config.setFooter_heaght(a.getInt(R.styleable.KPull_footer_heaght, 60));
-				if (a.hasValue(R.styleable.KPull_arrow_pic))
-					config.setArrow_pic(a.getResourceId(R.styleable.KPull_arrow_pic, R.drawable.xlistview_arrow));
+				int n = a.getIndexCount();
+				for (int i = 0; i < n; i++) {
+					int attr = a.getIndex(i);
+					switch (attr) {
+					case R.styleable.KPull_header_hint_normal:
+						config.setHeader_hint_normal(a.getText(attr));
+						break;
+					case R.styleable.KPull_header_hint_ready:
+						config.setHeader_hint_ready(a.getText(attr));
+						break;
+					case R.styleable.KPull_header_hint_loading:
+						config.setHeader_hint_loading(a.getText(attr));
+						break;
+					case R.styleable.KPull_footer_hint_ready:
+						config.setFooter_hint_ready(a.getText(attr));
+						break;
+					case R.styleable.KPull_footer_hint_normal:
+						config.setFooter_hint_normal(a.getText(attr));
+						break;
+					case R.styleable.KPull_header_heaght:
+						config.setHeader_heaght(a.getDimensionPixelOffset(attr, 60));// 得到的是像素px，如果xml中写的单位不是px(dp,sp)，会乘以density系数
+						break;
+					case R.styleable.KPull_footer_heaght:
+						config.setFooter_heaght(a.getDimensionPixelOffset(attr, 60));
+						break;
+					case R.styleable.KPull_arrow_pic:
+						config.setArrow_pic(a.getResourceId(attr, R.drawable.xlistview_arrow));
+						break;
+					}
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

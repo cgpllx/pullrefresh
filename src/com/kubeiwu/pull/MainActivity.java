@@ -21,17 +21,19 @@ public class MainActivity extends Activity implements IKPullListener, OnItemClic
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+	
+
+		setContentView(R.layout.klistview);
 		kListView = text1();
 		kListView.setOnAutoLoad(true);
-
-		setContentView(kListView);
-
+//		setContentView(kListView);
 	}
 
 	MyAdapter b;
 
 	private KListView text1() {
-		KListView kListView = new KListView(this);
+//		KListView kListView = new KListView(this);
+		KListView kListView = (KListView) findViewById(R.id.klistview);
 		kListView.setKListViewListener(this);
 		kListView.setPullLoadEnable(true);
 		kListView.setPullRefreshEnable(true);

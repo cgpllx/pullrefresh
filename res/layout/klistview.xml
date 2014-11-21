@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:kpull="http://schemas.android.com/apk/res/com.kubeiwu.pull"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.kubeiwu.pull.pullview.KListView
+        android:id="@+id/klistview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        kpull:arrow_pic="@drawable/ic_launcher"
+        kpull:header_heaght="@dimen/text"
+        kpull:header_hint_normal="@string/action_settings" />
+
+</LinearLayout>

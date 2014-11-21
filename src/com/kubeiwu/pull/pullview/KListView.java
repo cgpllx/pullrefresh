@@ -36,6 +36,7 @@ public class KListView extends ListView implements IPullView {
 
 	public KListView(Context context, AttributeSet attrs, int defStyle, KConfig config) {
 		super(context, attrs, defStyle);
+		System.out.println("attrs="+attrs);
 		mPullFreshController = new PullController(context, attrs, defStyle, config, this);
 	}
 

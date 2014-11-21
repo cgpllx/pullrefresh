@@ -56,7 +56,7 @@ public interface IPullView {
 	 * 
 	 */
 	public static class KConfig {
-		private String header_hint_normal = "\u4e0b\u62c9\u5237\u65b0",// 下拉刷新
+		private CharSequence header_hint_normal = "\u4e0b\u62c9\u5237\u65b0",// 下拉刷新
 				header_hint_ready = "\u677e\u5f00\u5237\u65b0\u6570\u636e",// 松开刷新数据
 				header_hint_loading = "\u6b63\u5728\u52a0\u8f7d\u002e\u002e\u002e", // 正在加载...
 				footer_hint_ready = "\u677e\u5f00\u52a0\u8f7d\u6570\u636e", // 松开加载数据
@@ -70,46 +70,66 @@ public interface IPullView {
 			return new KConfig();
 		}
 
-		public String getHeader_hint_normal() {
+		public CharSequence getHeader_hint_normal() {
 			return header_hint_normal;
 		}
 
+		public KConfig setHeader_hint_normal(CharSequence header_hint_normal) {
+			this.header_hint_normal = header_hint_normal;
+			return this;
+		}
 		public KConfig setHeader_hint_normal(String header_hint_normal) {
 			this.header_hint_normal = header_hint_normal;
 			return this;
 		}
 
-		public String getHeader_hint_ready() {
+		public CharSequence getHeader_hint_ready() {
 			return header_hint_ready;
 		}
 
+		public KConfig setHeader_hint_ready(CharSequence header_hint_ready) {
+			this.header_hint_ready = header_hint_ready;
+			return this;
+		}
 		public KConfig setHeader_hint_ready(String header_hint_ready) {
 			this.header_hint_ready = header_hint_ready;
 			return this;
 		}
 
-		public String getHeader_hint_loading() {
+		public CharSequence getHeader_hint_loading() {
 			return header_hint_loading;
 		}
 
+		public KConfig setHeader_hint_loading(CharSequence header_hint_loading) {
+			this.header_hint_loading = header_hint_loading;
+			return this;
+		}
 		public KConfig setHeader_hint_loading(String header_hint_loading) {
 			this.header_hint_loading = header_hint_loading;
 			return this;
 		}
 
-		public String getFooter_hint_ready() {
+		public CharSequence getFooter_hint_ready() {
 			return footer_hint_ready;
 		}
 
+		public KConfig setFooter_hint_ready(CharSequence footer_hint_ready) {
+			this.footer_hint_ready = footer_hint_ready;
+			return this;
+		}
 		public KConfig setFooter_hint_ready(String footer_hint_ready) {
 			this.footer_hint_ready = footer_hint_ready;
 			return this;
 		}
 
-		public String getFooter_hint_normal() {
+		public CharSequence getFooter_hint_normal() {
 			return footer_hint_normal;
 		}
 
+		public KConfig setFooter_hint_normal(CharSequence footer_hint_normal) {
+			this.footer_hint_normal = footer_hint_normal;
+			return this;
+		}
 		public KConfig setFooter_hint_normal(String footer_hint_normal) {
 			this.footer_hint_normal = footer_hint_normal;
 			return this;
