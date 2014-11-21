@@ -7,8 +7,8 @@ import android.view.MotionEvent;
 import android.widget.ListAdapter;
 
 import com.kubeiwu.pull.pullcore.HeaderFooterGridView;
-import com.kubeiwu.pull.pullcore.PullController;
 import com.kubeiwu.pull.pullcore.IPullView;
+import com.kubeiwu.pull.pullcore.PullController;
 
 /**
  * @author cgpllx1@qq.com (www.kubeiwu.com)
@@ -44,23 +44,40 @@ public class KGistView extends HeaderFooterGridView implements IPullView {
 		mPullFreshController.setAdapter(adapter);
 		super.setAdapter(adapter);
 	}
-
+   
+	@Override
 	public void setPullRefreshEnable(boolean enable) {
 		mPullFreshController.setPullRefreshEnable(enable);
 	}
 
+	@Override
 	public void setPullLoadEnable(boolean enable) {
 		mPullFreshController.setPullLoadEnable(enable);
 	}
 
+	@Override
 	public void stopRefresh() {
 		mPullFreshController.stopRefresh();
 	}
 
+	@Override
 	public void stopLoadMore() {
 		mPullFreshController.stopLoadMore();
 	}
 
+	public void setPullLoadError() {
+		mPullFreshController.setPullLoadError();
+	}
+
+	public void setPullRefreshError() {
+		mPullFreshController.setPullRefreshError();
+	}
+
+	public void setOnAutoLoad(boolean isAutoLoad) {
+		mPullFreshController.setOnAutoLoad(isAutoLoad);
+	}
+
+	@Override
 	public void setRefreshTime(String time) {
 		mPullFreshController.setRefreshTime(time);
 	}
@@ -75,12 +92,13 @@ public class KGistView extends HeaderFooterGridView implements IPullView {
 	@Override
 	public void computeScroll() {
 		mPullFreshController.computeScroll();
-
 		super.computeScroll();
 	}
 
+	@Override
 	public void setKListViewListener(IKPullListener l) {
 		mPullFreshController.setKListViewListener(l);
 	}
+
 
 }
