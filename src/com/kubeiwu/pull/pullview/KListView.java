@@ -44,7 +44,7 @@ public class KListView extends ListView implements IPullView {
 		mPullFreshController.setAdapter(adapter);
 		super.setAdapter(adapter);
 	}
-
+   
 	@Override
 	public void setPullRefreshEnable(boolean enable) {
 		mPullFreshController.setPullRefreshEnable(enable);

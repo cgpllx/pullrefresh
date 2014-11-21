@@ -35,7 +35,6 @@ public class MainActivity extends Activity implements IKPullListener, OnItemClic
 		kListView.setKListViewListener(this);
 		kListView.setPullLoadEnable(true);
 		kListView.setPullRefreshEnable(true);
-		// kListView.setOnScrollListener(this);
 		kListView.setOnItemClickListener(this);
 		b = new MyAdapter();
 		kListView.setAdapter(b);
