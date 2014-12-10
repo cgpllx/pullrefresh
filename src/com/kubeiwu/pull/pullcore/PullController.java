@@ -2,6 +2,7 @@ package com.kubeiwu.pull.pullcore;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.AttributeSet;
@@ -316,7 +317,11 @@ public class PullController implements OnScrollListener {
 			@Override
 			public void onGlobalLayout() {
 				mHeaderViewHeight = mHeaderViewContent.getHeight();
-				((View) mAbsListView).getViewTreeObserver().removeOnGlobalLayoutListener(this);
+				if(Build.VERSION.SDK_INT>=16){
+					((View) mAbsListView).getViewTreeObserver().removeOnGlobalLayoutListener(this);
+				} else{
+					((View) mAbsListView).getViewTreeObserver().removeGlobalOnLayoutListener(this);
+				}
 			}
 		});
 	}
